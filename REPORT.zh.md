@@ -1,7 +1,10 @@
 # 复现报告 —— Beamforming with Joint Phase and Time Array
 
 论文：J. Mo, A. AlAmmouri, S. Dong, Y. Nam, W.-S. Choi, G. Xu, J. Zhang，
-arXiv:2502.00139v1（2025年1月31日）。
+"Beamforming with Joint Phase and Time Array: System Design, Prototyping and Performance"，
+载于*2024 58th Asilomar Conference on Signals, Systems, and Computers*，
+Pacific Grove, CA, USA，2024年10月，第875–881页，
+DOI 10.1109/IEEECONF60004.2024.10942922，IEEE Xplore 10942922。
 
 环境：MATLAB R2026b Update 1，Windows 11，16线程，32 GB，未使用工具箱。
 缺口编号**G1–G8**仅在本仓库内使用。

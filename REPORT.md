@@ -1,7 +1,9 @@
 # Reproduction report — Beamforming with Joint Phase and Time Array
 
-Paper: J. Mo, A. AlAmmouri, S. Dong, Y. Nam, W.-S. Choi, G. Xu, J. Zhang,
-arXiv:2502.00139v1 (31 Jan. 2025).
+Paper: J. Mo, A. AlAmmouri, S. Dong, Y. Nam, W.-S. Choi, G. Xu, J. Zhang, "Beamforming with
+Joint Phase and Time Array: System Design, Prototyping and Performance", in *Proc. 2024 58th
+Asilomar Conference on Signals, Systems, and Computers*, Pacific Grove, CA, USA, Oct. 2024,
+pp. 875-881. DOI 10.1109/IEEECONF60004.2024.10942922, IEEE Xplore 10942922.
 
 Environment: MATLAB R2026b Update 1, Windows 11, 16 threads, 32 GB, no toolbox.
 Gap numbers **G1–G8** are local to this repository.

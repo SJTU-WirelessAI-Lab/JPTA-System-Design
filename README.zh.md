@@ -5,8 +5,11 @@
 本文复现以下论文的仿真结果：
 
 > J. Mo, A. AlAmmouri, S. Dong, Y. Nam, W.-S. Choi, G. Xu, J. Zhang,
-> "Beamforming with Joint Phase and Time Array: System Design, Prototyping and Performance",
-> arXiv:2502.00139v1，2025年1月.
+> "Beamforming with Joint Phase and Time Array: System Design, Prototyping and Performance"，
+> 载于*2024 58th Asilomar Conference on Signals, Systems, and Computers*，
+> Pacific Grove, CA, USA，2024年10月27–30日，第875–881页。
+> DOI [10.1109/IEEECONF60004.2024.10942922](https://doi.org/10.1109/IEEECONF60004.2024.10942922)
+> &middot; [IEEE Xplore](https://ieeexplore.ieee.org/document/10942922)
 
 这是JPTA系列的"系统篇"：把架构落到硬件。16×16平面阵**每列接一个真时延（TTD）单元**，
 于是一个射频通道能同时在几个方向上形成`N_UE`个波束、每个波束占一个子带（即type-1码本）；
@@ -21,7 +24,7 @@ TTD分辨率要求，以及与传统相控阵的吞吐/覆盖对比。
 
 - 对照报告：[`REPORT.zh.md`](REPORT.zh.md)（[English](REPORT.md)）
 - 仿真代码：[`matlab/`](matlab/)
-- 论文原文：`Beamforming with Joint Phase and Time Array (arXiv 2502.00139).pdf`
+- 论文原文：`Beamforming with Joint Phase and Time Array (IEEE Asilomar 2024).pdf`
 
 ---
 
@@ -284,7 +287,7 @@ MCS与RB数联合选择，约束BLER<10%、至少4个RB。三处必须交代的�
 | 仓库 | 论文 | 补充内容 |
 |---|---|---|
 | `JPTA-Paradigm` | Ratnam等，IEEE Access 2022 | JPTA原始框架、Algorithm 1–3、与HBF的对比 |
-| `JPTA-3D-Beamforming` | Yildiz等，arXiv:2401.00819 | 3D子带波束设计：LS/∞-范数/贪心/梯度下降 |
+| `JPTA-3D-Beamforming` | Yildiz等，IEEE VTC2024-Fall | 3D子带波束设计：LS/∞-范数/贪心/梯度下降 |
 | `JPTA-Uplink-Coverage` | AlAmmouri等，IEEE Access 2022 | 上行链路预算、HARQ、覆盖标度；本仓库的EESM参数即出自该文 |
 
 `core/jp_c17_mcs.m`里的η与29档MCS表取自2022上行论文Table 3，该仓库中同一函数名为`jp_mcs_table.m`。
@@ -302,13 +305,17 @@ MCS与RB数联合选择，约束BLER<10%、至少4个RB。三处必须交代的�
 ## 引用
 
 ```bibtex
-@article{mo2025jptasystem,
-  title   = {Beamforming with Joint Phase and Time Array: System Design, Prototyping
-             and Performance},
-  author  = {Mo, Jianhua and AlAmmouri, Ahmad and Dong, Shenggang and Nam, Younghan
-             and Choi, Won-Suk and Xu, Gary and Zhang, Jianzhong},
-  journal = {arXiv preprint arXiv:2502.00139},
-  year    = {2025}
+@inproceedings{mo2024jptasystem,
+  title     = {Beamforming with Joint Phase and Time Array: System Design, Prototyping
+               and Performance},
+  author    = {Mo, Jianhua and AlAmmouri, Ahmad and Dong, Shenggang and Nam, Younghan
+               and Choi, Won-Suk and Xu, Gary and Zhang, Jianzhong},
+  booktitle = {2024 58th Asilomar Conference on Signals, Systems, and Computers},
+  address   = {Pacific Grove, CA, USA},
+  pages     = {875--881},
+  month     = oct,
+  year      = {2024},
+  doi       = {10.1109/IEEECONF60004.2024.10942922}
 }
 ```
 

@@ -6,7 +6,10 @@ MATLAB reproduction of the simulation results in:
 
 > J. Mo, A. AlAmmouri, S. Dong, Y. Nam, W.-S. Choi, G. Xu, J. Zhang,
 > "Beamforming with Joint Phase and Time Array: System Design, Prototyping and Performance",
-> arXiv:2502.00139v1, Jan. 2025.
+> in *Proc. 2024 58th Asilomar Conference on Signals, Systems, and Computers*, Pacific Grove,
+> CA, USA, 27-30 Oct. 2024, pp. 875-881.
+> DOI [10.1109/IEEECONF60004.2024.10942922](https://doi.org/10.1109/IEEECONF60004.2024.10942922)
+> &middot; [IEEE Xplore](https://ieeexplore.ieee.org/document/10942922)
 
 This is the system paper of the joint phase-time array (JPTA) family: it turns the
 architecture into hardware. A 16×16 planar array feeds **one true-time-delay (TTD) unit per
@@ -25,7 +28,7 @@ coverage comparison against a conventional phased array.
 
 - Result report: [`REPORT.md`](REPORT.md) ([中文](REPORT.zh.md))
 - Simulation code: [`matlab/`](matlab/)
-- Paper: `Beamforming with Joint Phase and Time Array (arXiv 2502.00139).pdf`
+- Paper: `Beamforming with Joint Phase and Time Array (IEEE Asilomar 2024).pdf`
 
 ---
 
@@ -317,7 +320,7 @@ In the order they were hit; the full list is in [`REPORT.md`](REPORT.md) §7.
 | Repository | Paper | What it adds |
 |---|---|---|
 | `JPTA-Paradigm` | Ratnam et al., IEEE Access 2022 | the original JPTA formulation, Algorithms 1–3, HBF comparison |
-| `JPTA-3D-Beamforming` | Yildiz et al., arXiv:2401.00819 | 3-D sub-band beam design, LS / ∞-norm / greedy / gradient descent |
+| `JPTA-3D-Beamforming` | Yildiz et al., IEEE VTC2024-Fall | 3-D sub-band beam design, LS / ∞-norm / greedy / gradient descent |
 | `JPTA-Uplink-Coverage` | AlAmmouri et al., IEEE Access 2022 | uplink link budget, HARQ, coverage scaling — the source of the EESM parameters used here |
 
 The EESM parameter η and the 29-entry MCS table in `core/jp_c17_mcs.m` come from Table 3 of the
@@ -339,13 +342,17 @@ The EESM parameter η and the 29-entry MCS table in `core/jp_c17_mcs.m` come fro
 ## Citation
 
 ```bibtex
-@article{mo2025jptasystem,
-  title   = {Beamforming with Joint Phase and Time Array: System Design, Prototyping
-             and Performance},
-  author  = {Mo, Jianhua and AlAmmouri, Ahmad and Dong, Shenggang and Nam, Younghan
-             and Choi, Won-Suk and Xu, Gary and Zhang, Jianzhong},
-  journal = {arXiv preprint arXiv:2502.00139},
-  year    = {2025}
+@inproceedings{mo2024jptasystem,
+  title     = {Beamforming with Joint Phase and Time Array: System Design, Prototyping
+               and Performance},
+  author    = {Mo, Jianhua and AlAmmouri, Ahmad and Dong, Shenggang and Nam, Younghan
+               and Choi, Won-Suk and Xu, Gary and Zhang, Jianzhong},
+  booktitle = {2024 58th Asilomar Conference on Signals, Systems, and Computers},
+  address   = {Pacific Grove, CA, USA},
+  pages     = {875--881},
+  month     = oct,
+  year      = {2024},
+  doi       = {10.1109/IEEECONF60004.2024.10942922}
 }
 ```
 
