@@ -316,7 +316,7 @@ In the order they were hit; the full list is in [`REPORT.md`](REPORT.md) §7.
 
 | Repository | Paper | What it adds |
 |---|---|---|
-| `JPTA2022` | Ratnam et al., IEEE Access 2022 | the original JPTA formulation, Algorithms 1–3, HBF comparison |
+| `JPTA-Paradigm` | Ratnam et al., IEEE Access 2022 | the original JPTA formulation, Algorithms 1–3, HBF comparison |
 | `JPTA-3D-Beamforming` | Yildiz et al., arXiv:2401.00819 | 3-D sub-band beam design, LS / ∞-norm / greedy / gradient descent |
 | `JPTA-Uplink-Coverage` | AlAmmouri et al., IEEE Access 2022 | uplink link budget, HARQ, coverage scaling — the source of the EESM parameters used here |
 

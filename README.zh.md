@@ -283,7 +283,7 @@ MCS与RB数联合选择，约束BLER<10%、至少4个RB。三处必须交代的�
 
 | 仓库 | 论文 | 补充内容 |
 |---|---|---|
-| `JPTA2022` | Ratnam等，IEEE Access 2022 | JPTA原始框架、Algorithm 1–3、与HBF的对比 |
+| `JPTA-Paradigm` | Ratnam等，IEEE Access 2022 | JPTA原始框架、Algorithm 1–3、与HBF的对比 |
 | `JPTA-3D-Beamforming` | Yildiz等，arXiv:2401.00819 | 3D子带波束设计：LS/∞-范数/贪心/梯度下降 |
 | `JPTA-Uplink-Coverage` | AlAmmouri等，IEEE Access 2022 | 上行链路预算、HARQ、覆盖标度；本仓库的EESM参数即出自该文 |
 
