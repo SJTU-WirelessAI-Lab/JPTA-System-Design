@@ -68,19 +68,11 @@ for c = 1:numel(p.caseAngles)
     fprintf(fid,'\n');
 end
 
-% ---- how fine must the TTD be to hold the 3 dB claim? -------------------
-fprintf(fid,'required TTD resolution for a <=3 dB in-band ripple\n');
-fprintf(fid,'  (u-drift over one subband = 2*Ws*dtau must stay below the 3 dB half-width)\n');
-g0 = jp_c17_pattern(p, zeros(p.Nh,1), zeros(p.Nh,1), angV, p.fc);
-[~,i0] = max(g0); u3 = cosd(angV(i0)) - cosd(angV(find(g0(1:i0) < p.Gbs-3, 1, 'last')));
-fprintf(fid,'  half-width of the main lobe at -3 dB (in cos): %.4f\n', u3);
-for c = 1:numel(p.caseAngles)
-    Nu = numel(p.caseAngles{c}); b = jp_c17_bands(p, Nu);
-    Ws = (b.edges(2)-b.edges(1))*p.SCS;
-    fprintf(fid,'  %-8s subband %5.0f MHz -> dtau <= %.3f ns   (TTD grid 2.5 ns = %.0fx too coarse)\n', ...
-            p.caseName{c}, Ws/1e6, u3/(2*Ws)*1e9, 2.5/(u3/(2*Ws)*1e9));
-end
-fprintf(fid,'\n');
+% ---- how fine the TTD must be: answered empirically in run_b1d -----------
+% No closed-form number is quoted here. The steering phase is cos(theta), so the
+% 3 dB width of the main lobe depends on the user angle itself, and a single
+% "required resolution" would be meaningless for a multi-user configuration.
+fprintf(fid,'required TTD resolution: see out/b1d_summary.txt (step-size sweep).\n');
 fclose(fid);
 
 % ---- Fig.7 panels from the Fig.8 delay profile -------------------------

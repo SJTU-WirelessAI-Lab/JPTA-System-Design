@@ -1,0 +1,17 @@
+ramp vs sawtooth, same slope (eq. 5), M=16 elements, W=400 MHz
+
+case     rule   tau_max #beams<-3dB  worstUE(dB) spread(dB)
+2 UEs    ramp     18.75          4      -140.58      89.60
+2 UEs    saw       1.25          2        25.04       0.00
+
+4 UEs    ramp     18.75          2       -17.91      25.08
+4 UEs    saw       3.75          2        20.16       2.20
+
+8 UEs    ramp     30.72          2        -3.05      18.67
+8 UEs    saw      14.34          2         2.18      16.09
+
+16 UEs   ramp     30.72          2        -0.14      22.24
+16 UEs   saw      30.72          2        -0.14      22.24
+
+note: "beams" counts local maxima at f_c within 3 dB of the peak.
+      the ramp forms one beam; only the wrap puts a beam in each subband.

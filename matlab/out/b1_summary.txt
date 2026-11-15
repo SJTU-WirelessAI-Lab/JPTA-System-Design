@@ -1,5 +1,5 @@
 === 2 UEs: angles [-30 30]
-  design time 0.08 s, eq.(4) obj/Nsc = 99618.1881
+  design time 0.06 s, eq.(4) obj/Nsc = 99618.1881
   delay (ns), element 1..16: [0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0]
   max delay 0.00 ns, min delay 0.00 ns
   worst in-band gain per UE (dB): [4.48 1.17]   (peak = 28 dB)

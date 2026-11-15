@@ -6,18 +6,22 @@ arXiv:2502.00139v1 (31 Jan. 2025).
 Environment: MATLAB R2026b Update 1, Windows 11, 16 threads, 32 GB, no toolbox.
 Gap numbers **G1–G8** are local to this repository.
 
+**Reproducibility.** The whole tree was re-run from a fresh copy (`run_all`, about 1 min).
+All beam patterns, delays and throughputs came out identical; only the design-time line of
+`b1_summary.txt` moved (0.06 vs 0.08 s), which is why no result depends on a timing.
+
 ---
 
 ## 1 What is covered
 
 | Job | Script | Figures | Output |
 |---|---|---|---|
-| B-1 | `run_b1.m` | Fig. 7 from the unconstrained optimum of eq. (4) | `out/b1_fig7_{2,4,8,16}ue.png`, `out/b1_summary.txt` |
-| B-1b | `run_b1b.m` | Fig. 7 for the three candidate design rules | console only |
+| B-1 | `run_b1.m` | Fig. 7 from the unconstrained optimum of eq. (4) | `out/b1_fig7_{2,4,8,16}ue.png`, `out/b1_fig8_delay.png`, `out/b1_fig8.csv`, `out/b1_summary.txt` |
+| B-1b | `run_b1b.m` | Fig. 7 for the three candidate design rules | `out/b1b_design_compare.txt` (console echo as well) |
 | B-3 | `run_b3.m` | Fig. 8, delay law + symmetry + the eq. (5) read-out | `out/b3_fig8_delay.png`, `out/b3_fig8.csv`, `out/b3_summary.txt` |
 | B-2/B-5 | `run_b1c.m` | Fig. 7 with the Fig. 8 delays, phase from the closed form | `out/b1c_fig7_eq5{q,}.png`, `out/b1c_summary.txt` |
 | B-5 | `run_b1d.m` | TTD step-size sweep | `out/b1d_step_sweep.png`, `out/b1d_summary.txt` |
-| B-5 | `run_b1e.m` | straight ramp versus sawtooth | `out/b1e_ramp_vs_saw.png` |
+| B-5 | `run_b1e.m` | straight ramp versus sawtooth | `out/b1e_ramp_vs_saw.png`, `out/b1e_summary.txt` |
 | B-4 | `run_b2.m` | Fig. 9 | `out/b2_fig9_throughput.png`, `out/b2_throughput.csv`, `out/b2_summary.txt` |
 
 Figs. 4–6 of the paper are prototype measurements and are out of scope. Table II is a corollary

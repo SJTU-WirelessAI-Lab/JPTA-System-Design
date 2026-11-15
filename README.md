@@ -56,19 +56,20 @@ the full 28 dB, which a single frequency-flat phase shifter per element cannot d
 
 ```matlab
 cd matlab
-run_all              % every figure, about 1.5 min
+run_all              % every figure, about 1 min
 ```
 
-Single experiment:
+Single experiment (timings on a 16-thread node; they move by up to 2× with node load,
+which is why no result depends on them):
 
 ```matlab
-run_all('fig7raw')    % Fig. 7 from the unconstrained optimum of eq. (4)  ~10 s
+run_all('fig7raw')    % Fig. 7 from the unconstrained optimum of eq. (4)  ~25 s
 run_all('design')     % Fig. 7 for the three design rules of Sec. IV-B      ~1 s
-run_all('delaylaw')   % Fig. 8: delay law, quantization, wrap-around       ~11 s
-run_all('fig7')       % Fig. 7 with the Fig. 8 delays, phase only         ~29 s
-run_all('step')       % TTD step-size sweep
-run_all('ramp')       % straight ramp versus sawtooth
-run_all('fig9')       % Fig. 9: throughput and coverage                   ~12 s
+run_all('delaylaw')   % Fig. 8: delay law, quantization, wrap-around        ~2 s
+run_all('fig7')       % Fig. 7 with the Fig. 8 delays, phase only          ~20 s
+run_all('step')       % TTD step-size sweep                                 ~4 s
+run_all('ramp')       % straight ramp versus sawtooth                       ~4 s
+run_all('fig9')       % Fig. 9: throughput and coverage                     ~3 s
 ```
 
 All parameters are in `matlab/core/jp_params_c17.m`; every quantity the paper does not state
@@ -170,10 +171,13 @@ different beams:
 | Worst in-band gain (dB) | 2 UEs | 4 UEs | 8 UEs | 16 UEs |
 |---|---|---|---|---|
 | straight ramp | −140.58 | −17.91 | −3.05 | −0.14 |
-| sawtooth (= Fig. 8) | **25.04** | **20.16** | **2.18** | −0.14 (same, `N_UE = M`) |
+| sawtooth, exact slope of eq. (5) | **25.04** | **20.16** | **2.18** | −0.14 (same, `N_UE = M`) |
+| sawtooth on the 2.5 ns grid (= Fig. 8) | −140.58 | 0.65 | −24.03 | −12.34 |
 
 The wrap cuts the aperture into `16/N_UE` teeth, and the jump between teeth is where the
 multiple beams come from. The sawtooth shape is a necessary condition, not a drawing habit.
+The third row is the same sawtooth pushed through the 2.5 ns hardware grid, and it collapses —
+which is gap **G5**: Fig. 7 and Fig. 8 cannot both be drawn with the TTD step of Table I.
 
 ### 5.2 Fig. 7: the 3 dB claim holds for two users and only for two users
 

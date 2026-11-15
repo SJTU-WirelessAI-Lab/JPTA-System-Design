@@ -1,40 +1,33 @@
 C17 Fig.7 with the Fig.8 delay profile (per-element delays fixed, phi = eq.(4) closed form)
 paper: in-band gain >= 28-3 = 25 dB for every UE
 
-case     rule    tau_max     peak    worstUE     meanUE     ripple    verdict
-2 UEs    eq5q       2.50    28.00    -140.58     -86.57     162.43       FAIL
+case     rule    tau_max     peak    worstUE     meanUE     ripple envelope    verdict
+2 UEs    eq5q       2.50    28.00    -140.58     -86.57     162.43     4.84       FAIL
          per-UE worst in-band gain (dB): [-140.58 -32.57]
          delay (ns): [0 2.5 0 2.5 0 2.5 0 2.5 0 2.5 0 2.5 0 2.5 0 2.5]
          subband width 200 MHz
-2 UEs    eq5        1.25    28.00      25.04      25.04       2.02       PASS
-2 UEs    ideal         -    28.00      28.00      28.00       0.00       PASS
+2 UEs    eq5        1.25    28.00      25.04      25.04       2.02    25.04       PASS
+2 UEs    ideal         -    28.00      28.00      28.00       0.00    28.00       PASS
 
-4 UEs    eq5q       7.50    24.37       0.65       9.53      17.25       FAIL
+4 UEs    eq5q       7.50    24.37       0.65       9.53      17.25    18.67       FAIL
          per-UE worst in-band gain (dB): [19.05 0.65 1.11 17.32]
          delay (ns): [0 2.5 5 7.5 0 2.5 5 7.5 0 2.5 5 7.5 0 2.5 5 7.5]
          subband width 100 MHz
-4 UEs    eq5        3.75    25.01      20.16      20.88       2.10       FAIL
-4 UEs    ideal         -    28.00      28.00      28.00       0.00       PASS
+4 UEs    eq5        3.75    25.01      20.16      20.88       2.10    20.62       FAIL
+4 UEs    ideal         -    28.00      28.00      28.00       0.00    28.00       PASS
 
-8 UEs    eq5q      17.50    24.20     -24.03       8.89      34.92       FAIL
+8 UEs    eq5q      17.50    24.20     -24.03       8.89      34.92    15.26       FAIL
          per-UE worst in-band gain (dB): [16.15 14.66 16.78 6.09 -24.03 12.43 16.85 12.19]
          delay (ns): [0 2.5 5 7.5 10 12.5 15 17.5 0 2.5 5 7.5 10 12.5 15 17.5]
          subband width 50 MHz
-8 UEs    eq5       14.34    23.94       2.18       9.17      12.49       FAIL
-8 UEs    ideal         -    28.00      28.00      28.00       0.00       PASS
+8 UEs    eq5       14.34    23.94       2.18       9.17      12.49    15.87       FAIL
+8 UEs    ideal         -    28.00      28.00      28.00       0.00    28.00       PASS
 
-16 UEs   eq5q      37.50    24.38     -12.34       8.80      21.61       FAIL
+16 UEs   eq5q      37.50    24.38     -12.34       8.80      21.61    16.32       FAIL
          per-UE worst in-band gain (dB): [19.26 18.85 12.61 12.49 6.7 -12.34 -2.04 -2.04 3.74 14.06 9.95 5.56 13.36 12.99 13.16 14.56]
          delay (ns): [0 2.5 5 7.5 10 12.5 15 17.5 20 22.5 25 27.5 30 32.5 35 37.5]
          subband width 25 MHz
-16 UEs   eq5       30.72    26.17      -0.14       8.02       8.99       FAIL
-16 UEs   ideal         -    28.00      28.00      28.00       0.00       PASS
+16 UEs   eq5       30.72    26.17      -0.14       8.02       8.99    12.76       FAIL
+16 UEs   ideal         -    28.00      28.00      28.00       0.00    28.00       PASS
 
-required TTD resolution for a <=3 dB in-band ripple
-  (u-drift over one subband = 2*Ws*dtau must stay below the 3 dB half-width)
-  half-width of the main lobe at -3 dB (in cos): 0.0000
-  2 UEs    subband   200 MHz -> dtau <= 0.000 ns   (TTD grid 2.5 ns = Infx too coarse)
-  4 UEs    subband   100 MHz -> dtau <= 0.000 ns   (TTD grid 2.5 ns = Infx too coarse)
-  8 UEs    subband    50 MHz -> dtau <= 0.000 ns   (TTD grid 2.5 ns = Infx too coarse)
-  16 UEs   subband    25 MHz -> dtau <= 0.000 ns   (TTD grid 2.5 ns = Infx too coarse)
-
+required TTD resolution: see out/b1d_summary.txt (step-size sweep).

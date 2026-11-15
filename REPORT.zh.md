@@ -6,18 +6,22 @@ arXiv:2502.00139v1（2025年1月31日）。
 环境：MATLAB R2026b Update 1，Windows 11，16线程，32 GB，未使用工具箱。
 缺口编号**G1–G8**仅在本仓库内使用。
 
+**可复现性。**整棵树从一份干净副本重跑过一遍（`run_all`，约1 min）：所有波束图样、时延、
+吞吐结果完全一致，只有`b1_summary.txt`中的设计耗时一行变化（0.06 vs 0.08 s），
+因此没有任何结论依赖耗时。
+
 ---
 
 ## 1 覆盖范围
 
 | 任务 | 脚本 | 图 | 输出 |
 |---|---|---|---|
-| B-1 | `run_b1.m` | 式(4)无约束最优下的Fig.7 | `out/b1_fig7_{2,4,8,16}ue.png`、`out/b1_summary.txt` |
-| B-1b | `run_b1b.m` | 三种候选设计规则的Fig.7 | 仅控制台输出 |
+| B-1 | `run_b1.m` | 式(4)无约束最优下的Fig.7 | `out/b1_fig7_{2,4,8,16}ue.png`、`out/b1_fig8_delay.png`、`out/b1_fig8.csv`、`out/b1_summary.txt` |
+| B-1b | `run_b1b.m` | 三种候选设计规则的Fig.7 | `out/b1b_design_compare.txt`（同时回显到控制台） |
 | B-3 | `run_b3.m` | Fig.8、时延律、偶对称校验、式(5)的独立读数 | `out/b3_fig8_delay.png`、`out/b3_fig8.csv`、`out/b3_summary.txt` |
 | B-2/B-5 | `run_b1c.m` | 用Fig.8时延、相位取闭式的Fig.7 | `out/b1c_fig7_eq5{q,}.png`、`out/b1c_summary.txt` |
 | B-5 | `run_b1d.m` | TTD步长扫描 | `out/b1d_step_sweep.png`、`out/b1d_summary.txt` |
-| B-5 | `run_b1e.m` | 直线斜坡 vs锯齿 | `out/b1e_ramp_vs_saw.png` |
+| B-5 | `run_b1e.m` | 直线斜坡 vs锯齿 | `out/b1e_ramp_vs_saw.png`、`out/b1e_summary.txt` |
 | B-4 | `run_b2.m` | Fig.9 | `out/b2_fig9_throughput.png`、`out/b2_throughput.csv`、`out/b2_summary.txt` |
 
 论文Fig.4–6是原型实测，不在范围内；Table II是Fig.8的推论，未单独作图。
@@ -81,10 +85,11 @@ $$\tau_m=\underbrace{\left\lceil\frac{\sin(\Delta\theta/2)}{W}\right\rceil_{2.5\
 | 带内最差增益（dB） | 2用户 | 4用户 | 8用户 | 16用户 |
 |---|---|---|---|---|
 | 直线斜坡（式(5)原样） | −140.58 | −17.91 | −3.05 | −0.14 |
-| 锯齿（=Fig.8） | **25.04** | **20.16** | **2.18** | −0.14 |
+| 锯齿，斜率取式(5)的精确值 | **25.04** | **20.16** | **2.18** | −0.14 |
+| 锯齿，斜率取2.5 ns网格（=Fig.8） | −140.58 | 0.65 | −24.03 | −12.34 |
 
 回绕把孔径切成$16/N_{UE}$个齿，齿间那一跳才是多波束的来源；整孔径一个斜坡只能形成单一波束。
-Fig.8的形状是多波束的必要条件。
+Fig.8的形状是多波束的必要条件，但第三行同时说明：把这条锯齿压到2.5 ns网格上就崩了（G5）。
 
 ---
 
