@@ -1,4 +1,4 @@
-C17 Fig.9 reproduction | Table-I link budget | beta = 3
+Fig.9 reproduction | Table-I link budget | beta = 3
 PAA: all RBs, 1-of-N slots | JPTA: 1/N of RBs, every slot
 TDD uplink duty = 0.20, BLER target = 10%
 

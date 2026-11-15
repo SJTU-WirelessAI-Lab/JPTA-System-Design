@@ -1,5 +1,5 @@
-function b = jp_c17_bands(p, N_UE)
-%JP_C17_BANDS  Subband -> UE mapping used by C17 Sec. IV.
+function b = jp_bands(p, N_UE)
+%JP_BANDS  Subband -> UE mapping used in Sec. IV.
 %
 %   The RB set is split into N_UE equal contiguous blocks; block i is served
 %   by the i-th UE (non-overlapping RBs => no inter-user interference, as the

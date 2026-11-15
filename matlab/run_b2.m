@@ -1,11 +1,11 @@
 % =======================================================================
-%  run_b2.m  --  C17 Fig. 9: mean UE throughput vs distance (PAA vs JPTA)
-%  System-level simulation per Sec. IV-A with the J19 link abstraction.
+%  run_b2.m  --  Fig. 9: mean UE throughput vs distance (PAA vs JPTA)
+%  System-level simulation per Sec. IV-A with the the uplink-coverage paper link abstraction.
 % =======================================================================
 addpath(fullfile(fileparts(mfilename('fullpath')),'core'));
 addpath(fullfile(fileparts(mfilename('fullpath')),'alg'));
-p   = jp_params_c17();
-T   = jp_c17_mcs();
+p   = jp_params();
+T   = jp_mcs();
 out = fullfile(fileparts(mfilename('fullpath')), 'out');
 if ~exist(out,'dir'), mkdir(out); end
 
@@ -46,19 +46,19 @@ for iu = 1:numel(nUE)
     % ---- link tables (EESM is shift invariant in dB) -------------------
     tabP = cell(1,Nu);  tabJ = cell(1,Nu);
     for u = 1:Nu
-        tabP{u} = jp_c17_link_table(p, gp(u)*ones(p.Nsc,1), p.Nrb, T);
+        tabP{u} = jp_link_table(p, gp(u)*ones(p.Nsc,1), p.Nrb, T);
         sel = ((1:p.Nsc).' > (u-1)*p.Nsc/Nu) & ((1:p.Nsc).' <= u*p.Nsc/Nu);
         fo  = p.foff(sel);
         fo  = fo - mean(fo);                 % offset from the subband centre
         gj  = p.Gbs - gEdge*(2*fo/bw).^2;    % 28 dB centre, >=25 dB at edges
-        tabJ{u} = jp_c17_link_table(p, gj, rbJ, T);
+        tabJ{u} = jp_link_table(p, gj, rbJ, T);
     end
 
     for id = 1:numel(D)
         ap = 0;  aj = 0;
         for u = 1:Nu
-            ap = ap + jp_c17_link_eval(p, tabP{u}, T, Gh(id), 1/Nu);
-            aj = aj + jp_c17_link_eval(p, tabJ{u}, T, Gh(id), 1);
+            ap = ap + jp_link_eval(p, tabP{u}, T, Gh(id), 1/Nu);
+            aj = aj + jp_link_eval(p, tabJ{u}, T, Gh(id), 1);
         end
         R_paa(id,iu) = ap/Nu;
         R_jpt(id,iu) = aj/Nu;
@@ -71,7 +71,7 @@ end
 
 % ---- report -------------------------------------------------------------
 fid = fopen(fullfile(out,'b2_summary.txt'),'w');
-fprintf(fid,'C17 Fig.9 reproduction | Table-I link budget | beta = %g\n', p.beta);
+fprintf(fid,'Fig.9 reproduction | Table-I link budget | beta = %g\n', p.beta);
 fprintf(fid,'PAA: all RBs, 1-of-N slots | JPTA: 1/N of RBs, every slot\n');
 fprintf(fid,'TDD uplink duty = %.2f, BLER target = %.0f%%\n\n', p.ulDuty, 100*p.blerTgt);
 for iu = 1:numel(nUE)
@@ -119,7 +119,7 @@ for iu = 1:numel(nUE)
     lg{2*iu-1} = sprintf('PAA %d UEs', nUE(iu));
     lg{2*iu}   = sprintf('JPTA %d UEs', nUE(iu));
 end
-legend(lg,'Location','northeast'); title('C17 Fig.9 reproduction');
+legend(lg,'Location','northeast'); title('Fig.9 reproduction');
 print(fg, fullfile(out,'b2_fig9_throughput.png'), '-dpng', '-r180');
 close(fg);
 

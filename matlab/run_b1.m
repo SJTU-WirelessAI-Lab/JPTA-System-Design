@@ -1,11 +1,11 @@
 % =======================================================================
-%  run_b1.m  --  C17 Fig. 7 (Type-1 beam patterns) and Fig. 8 (delay profile)
+%  run_b1.m  --  Fig. 7 (Type-1 beam patterns) and Fig. 8 (delay profile)
 %  Run on nanyangnorth:  matlab -batch run_b1
 % =======================================================================
 addpath(fullfile(fileparts(mfilename('fullpath')),'core'));
 addpath(fullfile(fileparts(mfilename('fullpath')),'alg'));
 
-p   = jp_params_c17();
+p   = jp_params();
 out = fullfile(fileparts(mfilename('fullpath')), 'out');
 if ~exist(out,'dir'), mkdir(out); end
 
@@ -19,20 +19,20 @@ fid = fopen(fullfile(out,'b1_summary.txt'),'w');
 for c = 1:nCase
     th  = p.caseAngles{c};
     Nu  = numel(th);
-    b   = jp_c17_bands(p, Nu);
+    b   = jp_bands(p, Nu);
 
     t1 = tic;
-    [phi, tau, info] = jp_c17_type1(p, th, b.idx, struct('verbose',false));
+    [phi, tau, info] = jp_type1(p, th, b.idx, struct('verbose',false));
     dt = toc(t1);
 
     % ---- beam pattern over the whole band -------------------------------
-    G = jp_c17_pattern(p, phi, tau, angV, p.f);
+    G = jp_pattern(p, phi, tau, angV, p.f);
 
     % gain inside each UE's own subband, at its own angle
     gIn = zeros(1,Nu);
     for u = 1:Nu
         sel = (b.idx == u);
-        gu  = jp_c17_pattern(p, phi, tau, th(u), p.f(sel));
+        gu  = jp_pattern(p, phi, tau, th(u), p.f(sel));
         gIn(u) = min(gu(:));
     end
     Dmax(c) = max(tau)*1e9;
@@ -54,7 +54,7 @@ for c = 1:nCase
     cb = colorbar; cb.Label.String = 'Beamforming gain (dB)';
     caxis([12 28]);
     xlabel('Frequency offset (10^8 Hz)'); ylabel('Angle (degree)');
-    title(sprintf('C17 Fig.7(%s): Type-1 JPTA, %d UEs, peak 28 dB', ...
+    title(sprintf('Fig.7(%s): Type-1 JPTA, %d UEs, peak 28 dB', ...
           char('a'+c-1), Nu));
     print(fg, fullfile(out, sprintf('b1_fig7_%due.png', Nu)), '-dpng', '-r170');
     close(fg);
@@ -84,7 +84,7 @@ for c = 1:nCase
          'MarkerFaceColor', cl(c,:), 'MarkerSize',6);
 end
 xlabel('Delay element index'); ylabel('Delay (ns)');
-title('C17 Fig.8 reproduction: delay per element');
+title('Fig.8 reproduction: delay per element');
 legend(p.caseName, 'Location','northwest');
 grid on; box on;
 print(fg, fullfile(out,'b1_fig8_delay.png'), '-dpng', '-r180');

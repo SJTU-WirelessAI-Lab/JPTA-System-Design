@@ -68,7 +68,7 @@ run_all('ramp')       % 直线斜坡 vs锯齿                 ~4 s
 run_all('fig9')       % Fig.9：吞吐与覆盖               ~3 s
 ```
 
-全部参数在`matlab/core/jp_params_c17.m`；论文未给的量都在该文件里标了`[assumed]`，
+全部参数在`matlab/core/jp_params.m`；论文未给的量都在该文件里标了`[assumed]`，
 对应缺口编号见[`REPORT.zh.md`](REPORT.zh.md)§7。
 
 **环境**：MATLAB R2022a及以上，不需要工具箱，已在R2026b验证，结果确定。
@@ -88,17 +88,17 @@ matlab/
   run_b2.m               Fig.9
   run_b3.m               Fig.8与时延律、对称性校验
   core/
-    jp_params_c17.m      论文Table I，单个结构体，带[assumed]标记
-    jp_c17_bands.m       子带→UE映射（等分连续块）
-    jp_c17_pattern.m     给定权重集的角度×频率增益图
-    jp_c17_mcs.m         带逐MCS η的MCS表
-    jp_eesm.m            数值稳定的EESM（J19式(11)）
-    jp_c17_link_table.m  预计算每个(RB, MCS)组合的有效SNR
-    jp_c17_link_eval.m   某距离上一个UE的最优(RB, MCS)吞吐
+    jp_params.m          论文Table I，单个结构体，带[assumed]标记
+    jp_bands.m           子带→UE映射（等分连续块）
+    jp_pattern.m         给定权重集的角度×频率增益图
+    jp_mcs.m             带逐MCS η的MCS表
+    jp_eesm.m            数值稳定的EESM（见上行覆盖那篇的式(11)）
+    jp_link_table.m      预计算每个(RB, MCS)组合的有效SNR
+    jp_link_eval.m       某距离上一个UE的最优(RB, MCS)吞吐
     jp_filldef.m         选项结构体合并
   alg/
-    jp_c17_type1.m       type-1码本：式(4)的精确解
-    jp_c17_design.m      三种候选设计规则（'ls'、'sawtooth'、'rainbow'）
+    jp_type1.m           type-1码本：式(4)的精确解
+    jp_design.m          三种候选设计规则（'ls'、'sawtooth'、'rainbow'）
   out/                   图（入库）与.mat缓存（不入库）
 REPORT.zh.md             复现报告
 README.md                英文版说明
@@ -109,7 +109,7 @@ REPORT.md                英文版报告
 
 ## 4 仿真参数
 
-论文Table I，全部在`jp_params_c17.m`：
+论文Table I，全部在`jp_params.m`：
 
 | 符号 | 含义 | 取值 |
 |---|---|---|
@@ -290,7 +290,7 @@ MCS与RB数联合选择，约束BLER<10%、至少4个RB。三处必须交代的�
 | `JPTA-3D-Beamforming` | Yildiz等，IEEE VTC2024-Fall | 3D子带波束设计：LS/∞-范数/贪心/梯度下降 |
 | `JPTA-Uplink-Coverage` | AlAmmouri等，IEEE Access 2022 | 上行链路预算、HARQ、覆盖标度；本仓库的EESM参数即出自该文 |
 
-`core/jp_c17_mcs.m`里的η与29档MCS表取自2022上行论文Table 3，该仓库中同一函数名为`jp_mcs_table.m`。
+`core/jp_mcs.m`里的η与29档MCS表取自2022上行论文Table 3；同一张表在上行覆盖仓库里叫`jp_mcs_table.m`。
 
 ---
 

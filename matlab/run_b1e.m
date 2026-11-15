@@ -12,7 +12,7 @@
 % =======================================================================
 addpath(fullfile(fileparts(mfilename('fullpath')),'core'));
 addpath(fullfile(fileparts(mfilename('fullpath')),'alg'));
-p   = jp_params_c17();
+p   = jp_params();
 out = fullfile(fileparts(mfilename('fullpath')), 'out');
 if ~exist(out,'dir'), mkdir(out); end
 fid = fopen(fullfile(out,'b1e_summary.txt'),'w');
@@ -21,7 +21,7 @@ angV = -60:0.25:60;
 fprintf(fid,'ramp vs sawtooth, same slope (eq. 5), M=%d elements, W=%.0f MHz\n\n', p.Nh, p.BW/1e6);
 fprintf(fid,'%-8s %-5s %8s %10s %12s %10s\n','case','rule','tau_max','#beams<-3dB','worstUE(dB)','spread(dB)');
 for c = 1:numel(p.caseAngles)
-    th = p.caseAngles{c}; Nu = numel(th); b = jp_c17_bands(p, Nu);
+    th = p.caseAngles{c}; Nu = numel(th); b = jp_bands(p, Nu);
     dth = max(th)-min(th); dt = sind(dth/2)/p.BW;
     rules = {'ramp','saw'};
     for k = 1:2
@@ -32,11 +32,11 @@ for c = 1:numel(p.caseAngles)
         phi = opt_phi(p, th, b.idx, tau);
         gW  = zeros(1,Nu);
         for u = 1:Nu
-            gu = jp_c17_pattern(p, phi, tau, th(u), p.f(b.idx==u));
+            gu = jp_pattern(p, phi, tau, th(u), p.f(b.idx==u));
             gW(u) = min(gu(:));
         end
         % beams at the centre of the band: local maxima within 3 dB of the peak
-        g  = jp_c17_pattern(p, phi, tau, angV, p.fc); g = g(:).';
+        g  = jp_pattern(p, phi, tau, angV, p.fc); g = g(:).';
         lm = find(g(2:end-1) > g(1:end-2) & g(2:end-1) > g(3:end)) + 1;
         nb = sum(g(lm) >= max(g)-3);
         fprintf(fid,'%-8s %-5s %8.2f %10d %12.2f %10.2f\n', p.caseName{c}, rules{k}, ...
@@ -44,7 +44,7 @@ for c = 1:numel(p.caseAngles)
 
         if c == 2
             E.(rules{k}) = struct('phi',phi,'tau',tau, ...
-                'G', jp_c17_pattern(p, phi, tau, angV, p.f));
+                'G', jp_pattern(p, phi, tau, angV, p.f));
         end
     end
     fprintf(fid,'\n');
@@ -59,7 +59,7 @@ rules = {'ramp','saw'};
 for k = 1:2
     subplot(1,2,k);
     imagesc(p.foff/1e6, angV, E.(rules{k}).G); axis xy; hold on;
-    Nu = numel(p.caseAngles{2}); b = jp_c17_bands(p, Nu);
+    Nu = numel(p.caseAngles{2}); b = jp_bands(p, Nu);
     for i = 1:Nu
         plot([p.foff(b.edges(i)+1) p.foff(b.edges(i+1))]/1e6, [p.caseAngles{2}(i) p.caseAngles{2}(i)], ...
              'w--','LineWidth',1.1);

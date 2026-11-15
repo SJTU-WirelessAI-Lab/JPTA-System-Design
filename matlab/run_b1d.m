@@ -1,5 +1,5 @@
 % =======================================================================
-%  run_b1d.m  --  how fine must the TTD step be for C17's "<=3 dB" claim?
+%  run_b1d.m  --  how fine must the TTD step be for this paper's "<=3 dB" claim?
 %
 %  Fix the hardware constraint (one PS + one TTD per element), take the
 %  Type-1 delay profile of eq. (5) wrapped every N_UE elements,
@@ -11,7 +11,7 @@
 % =======================================================================
 addpath(fullfile(fileparts(mfilename('fullpath')),'core'));
 addpath(fullfile(fileparts(mfilename('fullpath')),'alg'));
-p   = jp_params_c17();
+p   = jp_params();
 out = fullfile(fileparts(mfilename('fullpath')), 'out');
 if ~exist(out,'dir'), mkdir(out); end
 fid = fopen(fullfile(out,'b1d_summary.txt'),'w');
@@ -34,14 +34,14 @@ G   = zeros(numel(p.caseAngles), numel(dts));
 fig = figure('Visible','off','Position',[80 80 900 560]); hold on;
 mk  = {'-o','-s','-^','-d'}; cl = lines(4);
 for c = 1:numel(p.caseAngles)
-    th = p.caseAngles{c}; Nu = numel(th); b = jp_c17_bands(p, Nu);
+    th = p.caseAngles{c}; Nu = numel(th); b = jp_bands(p, Nu);
     Ws = (b.edges(2)-b.edges(1))*p.SCS;
     for i = 1:numel(dts)
         tau = dts(i)*mod((0:p.Nh-1).', Nu);
         phi = opt_phi(p, th, b.idx, tau);
         gW  = zeros(1,Nu);
         for u = 1:Nu
-            gu = jp_c17_pattern(p, phi, tau, th(u), p.f(b.idx==u));
+            gu = jp_pattern(p, phi, tau, th(u), p.f(b.idx==u));
             gW(u) = min(gu(:));
         end
         G(c,i) = min(gW);
@@ -59,7 +59,7 @@ text(0.03, p.Gbs-2.2, '28 - 3 dB', 'Color','r', 'FontSize',9);
 set(gca,'XScale','log'); xlim([0.02 3]); ylim([-10 30]);
 xlabel('TTD step dt (ns)   [Table I allows 2.5\cdotk only]');
 ylabel('worst in-band gain over all UEs (dB)');
-title('C17 Fig.7 "<=3 dB below 28 dB" vs TTD resolution');
+title('Fig.7 "<=3 dB below 28 dB" vs TTD resolution');
 legend(p.caseName,'Location','southwest'); grid on; box on;
 print(fig, fullfile(out,'b1d_step_sweep.png'), '-dpng','-r170'); close(fig);
 
@@ -67,7 +67,7 @@ print(fig, fullfile(out,'b1d_step_sweep.png'), '-dpng','-r170'); close(fig);
 fprintf(fid,'\nwhat the two candidate steps give:\n');
 fprintf(fid,'%-8s %10s %10s %10s %10s\n','case','eq5 step','eq5q step','g@eq5','g@eq5q');
 for c = 1:numel(p.caseAngles)
-    th = p.caseAngles{c}; Nu = numel(th); b = jp_c17_bands(p, Nu);
+    th = p.caseAngles{c}; Nu = numel(th); b = jp_bands(p, Nu);
     d5  = sind((max(th)-min(th))/2)/p.BW;
     d5q = ceil(d5/p.tauStep)*p.tauStep;
     g5  = worst_gain(p, th, b.idx, d5);
@@ -93,7 +93,7 @@ Nu  = numel(th); tau = dt*mod((0:p.Nh-1).', Nu);
 phi = opt_phi(p, th, bandIdx, tau);
 gW  = zeros(1,Nu);
 for u = 1:Nu
-    gu = jp_c17_pattern(p, phi, tau, th(u), p.f(bandIdx==u));
+    gu = jp_pattern(p, phi, tau, th(u), p.f(bandIdx==u));
     gW(u) = min(gu(:));
 end
 g = min(gW);

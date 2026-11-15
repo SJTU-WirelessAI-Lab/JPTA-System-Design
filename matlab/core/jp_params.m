@@ -1,5 +1,5 @@
-function p = jp_params_c17()
-%JP_PARAMS_C17  Parameters of C17 (AlAmmouri/Mo et al., Asilomar 2024) Table I.
+function p = jp_params()
+%JP_PARAMS  Parameters from (AlAmmouri/Mo et al., Asilomar 2024), Table I.
 %
 %   Everything the paper states is set here; every quantity the paper does
 %   NOT state is marked [assumed] with the value used (see REPORT.md G16-G19).
@@ -50,7 +50,7 @@ p.ulDuty  = 0.2;              % [assumed] TDD uplink duty cycle (DDDSU).  The
                               % TDD pattern; 0.2 is the only free scale left
                               % and is what aligns the plateau of Fig. 9.
 p.gainThr = 3;                % [assumed] subcarriers >3 dB below the
-                              % peak are dropped before EESM (J19 eq. 11)
+                              % peak are dropped before EESM (eq. 11 of the uplink-coverage paper)
 
 % ---- scenario angles -----------------------------------------------------
 p.caseAngles = {[-30 30], ...

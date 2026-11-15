@@ -75,7 +75,7 @@ run_all('ramp')       % straight ramp versus sawtooth                       ~4 s
 run_all('fig9')       % Fig. 9: throughput and coverage                     ~3 s
 ```
 
-All parameters are in `matlab/core/jp_params_c17.m`; every quantity the paper does not state
+All parameters are in `matlab/core/jp_params.m`; every quantity the paper does not state
 is marked `[assumed]` in that file, and the corresponding gap number is given in
 [`REPORT.md`](REPORT.md) §6.
 
@@ -96,17 +96,17 @@ matlab/
   run_b2.m               Fig. 9
   run_b3.m               Fig. 8 and the symmetry check
   core/
-    jp_params_c17.m      Table I of the paper, one struct, [assumed] flags
-    jp_c17_bands.m       sub-band -> UE mapping (equal contiguous blocks)
-    jp_c17_pattern.m     beam pattern of a weight set on an angle x frequency grid
-    jp_c17_mcs.m         MCS table with the per-MCS EESM parameter eta
-    jp_eesm.m            numerically stable EESM (J19 eq. 11)
-    jp_c17_link_table.m  EESM of every (RB, MCS) pair, pre-computed
-    jp_c17_link_eval.m   best (RB, MCS) throughput for one UE at one distance
+    jp_params.m          Table I of the paper, one struct, [assumed] flags
+    jp_bands.m           sub-band -> UE mapping (equal contiguous blocks)
+    jp_pattern.m         beam pattern of a weight set on an angle x frequency grid
+    jp_mcs.m             MCS table with the per-MCS EESM parameter eta
+    jp_eesm.m            numerically stable EESM (eq. 11 of the uplink-coverage paper)
+    jp_link_table.m      EESM of every (RB, MCS) pair, pre-computed
+    jp_link_eval.m       best (RB, MCS) throughput for one UE at one distance
     jp_filldef.m         option-struct helper
   alg/
-    jp_c17_type1.m       type-1 codebook: exact solution of eq. (4)
-    jp_c17_design.m      three candidate design rules ('ls', 'sawtooth', 'rainbow')
+    jp_type1.m           type-1 codebook: exact solution of eq. (4)
+    jp_design.m          three candidate design rules ('ls', 'sawtooth', 'rainbow')
   out/                   figures (tracked) and .mat caches (ignored)
 REPORT.md                reproduction report
 README.zh.md             Chinese version of this file
@@ -117,7 +117,7 @@ REPORT.zh.md             Chinese version of the report
 
 ## 4. Simulation parameters
 
-Table I of the paper, all in `jp_params_c17.m`:
+Table I of the paper, all in `jp_params.m`:
 
 | Symbol | Meaning | Value |
 |---|---|---|
@@ -323,7 +323,7 @@ In the order they were hit; the full list is in [`REPORT.md`](REPORT.md) §7.
 | `JPTA-3D-Beamforming` | Yildiz et al., IEEE VTC2024-Fall | 3-D sub-band beam design, LS / ∞-norm / greedy / gradient descent |
 | `JPTA-Uplink-Coverage` | AlAmmouri et al., IEEE Access 2022 | uplink link budget, HARQ, coverage scaling — the source of the EESM parameters used here |
 
-The EESM parameter η and the 29-entry MCS table in `core/jp_c17_mcs.m` come from Table 3 of the
+The EESM parameter η and the 29-entry MCS table in `core/jp_mcs.m` come from Table 3 of the
 2022 uplink paper; the same table appears there as `jp_mcs_table.m`.
 
 ---

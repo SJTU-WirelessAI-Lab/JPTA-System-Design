@@ -1,7 +1,7 @@
-function [thr, out] = jp_c17_link_eval(p, tab, T, gPath, duty)
-%JP_C17_LINK_EVAL  Best (RB, MCS) throughput for one UE at a given path gain.
+function [thr, out] = jp_link_eval(p, tab, T, gPath, duty)
+%JP_LINK_EVAL  Best (RB, MCS) throughput for one UE at a given path gain.
 %
-%   Implements the scheduler of C17 Sec. IV-A:
+%   Implements the scheduler , Sec. IV-A:
 %       max_{m, MCS} m*12*SCS*SE*(1-BLER)   s.t. BLER <= 10%, m >= 4,
 %   with the UE's fixed total power spread over the m RBs it is granted.
 

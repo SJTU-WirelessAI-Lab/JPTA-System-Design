@@ -1,5 +1,5 @@
-function [phi, tau, info] = jp_c17_type1(p, theta_deg, bandIdx, opt)
-%JP_C17_TYPE1  Type-1 JPTA codebook by solving C17 eq. (4) exactly.
+function [phi, tau, info] = jp_type1(p, theta_deg, bandIdx, opt)
+%JP_TYPE1  Type-1 JPTA codebook by solving eq. (4) exactly.
 %
 %   The paper's problem is
 %       min_{tau_m,phi_m}  sum_k || p_k - b_k ||^2 ,                       (4)

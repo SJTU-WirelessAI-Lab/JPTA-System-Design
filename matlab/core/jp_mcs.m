@@ -1,9 +1,9 @@
-function T = jp_c17_mcs()
-%JP_C17_MCS  MCS table of C17 with the per-MCS EESM parameter eta.
+function T = jp_mcs()
+%JP_MCS  MCS table of this paper with the per-MCS EESM parameter eta.
 %
 %   eta, modulation order and coding rate are transcribed from Table 3 of
-%   J19 (AlAmmouri, Mo et al., IEEE Access 2022), which is C17's ref. [7]
-%   and the paper C17 delegates its link abstraction to.
+%   the uplink-coverage paper (AlAmmouri, Mo et al., IEEE Access 2022), which is this paper's ref. [7]
+%   and the paper this paper delegates its link abstraction to.
 %
 %   The 10%-BLER SNR thresholds are NOT in either paper.  They are obtained
 %   by interpolating the standard 3GPP CQI->SNR operating points (below) in

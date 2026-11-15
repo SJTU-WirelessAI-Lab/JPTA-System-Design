@@ -1,4 +1,4 @@
-C17 Fig.7 with the Fig.8 delay profile (per-element delays fixed, phi = eq.(4) closed form)
+Fig.7 with the Fig.8 delay profile (per-element delays fixed, phi = eq.(4) closed form)
 paper: in-band gain >= 28-3 = 25 dB for every UE
 
 case     rule    tau_max     peak    worstUE     meanUE     ripple envelope    verdict

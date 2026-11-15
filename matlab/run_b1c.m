@@ -1,5 +1,5 @@
 % =======================================================================
-%  run_b1c.m  --  C17 Fig. 7 redone with the paper's OWN Fig. 8 delay profile
+%  run_b1c.m  --  Fig. 7 redone with the paper's OWN Fig. 8 delay profile
 %
 %  Why this script exists: b1 designed the beam by solving eq. (4) from
 %  scratch, which produced a delay profile of its own.  But Sec. IV-B says
@@ -21,13 +21,13 @@
 % =======================================================================
 addpath(fullfile(fileparts(mfilename('fullpath')),'core'));
 addpath(fullfile(fileparts(mfilename('fullpath')),'alg'));
-p   = jp_params_c17();
+p   = jp_params();
 out = fullfile(fileparts(mfilename('fullpath')), 'out');
 if ~exist(out,'dir'), mkdir(out); end
 fid = fopen(fullfile(out,'b1c_summary.txt'),'w');
 angV = -60:0.25:60;
 
-fprintf(fid,'C17 Fig.7 with the Fig.8 delay profile (per-element delays fixed, phi = eq.(4) closed form)\n');
+fprintf(fid,'Fig.7 with the Fig.8 delay profile (per-element delays fixed, phi = eq.(4) closed form)\n');
 fprintf(fid,'paper: in-band gain >= 28-3 = 25 dB for every UE\n\n');
 
 MODE = {'eq5q','eq5'};
@@ -36,18 +36,18 @@ fprintf(fid,'%-8s %-6s %8s %8s %10s %10s %10s %8s %10s\n', ...
 res = struct();
 for c = 1:numel(p.caseAngles)
     th = p.caseAngles{c};  Nu = numel(th);
-    b  = jp_c17_bands(p, Nu);
+    b  = jp_bands(p, Nu);
     Ws = (b.edges(2)-b.edges(1))*p.SCS;            % subband width [Hz]
 
     for k = 1:numel(MODE)
         [phi, tau] = design_fixed_step(p, th, b.idx, MODE{k});
         gPk = zeros(1,Nu); gW = zeros(1,Nu); gM = zeros(1,Nu);
         for u = 1:Nu
-            g = jp_c17_pattern(p, phi, tau, th(u), p.f(b.idx==u));
+            g = jp_pattern(p, phi, tau, th(u), p.f(b.idx==u));
             g = g(:).';
             gW(u) = min(g); gM(u) = mean(g); gPk(u) = max(g);
         end
-        g  = jp_c17_pattern(p, phi, tau, angV, p.f);
+        g  = jp_pattern(p, phi, tau, angV, p.f);
         pk = max(g(:));
         env = min(max(g,[],1));            % ridge height vs frequency
         worst = min(gW); meanW = mean(gW); rip = max(gM - gW);
@@ -79,7 +79,7 @@ fclose(fid);
 for k = 1:numel(MODE)
     fg = figure('Visible','off','Position',[80 80 1240 880]);
     for c = 1:numel(p.caseAngles)
-        th = p.caseAngles{c}; Nu = numel(th); b = jp_c17_bands(p, Nu);
+        th = p.caseAngles{c}; Nu = numel(th); b = jp_bands(p, Nu);
         subplot(2,2,c);
         imagesc(p.foff/1e6, angV, res(c).(MODE{k}).G); axis xy; hold on;
         for i = 1:Nu
@@ -93,18 +93,18 @@ for k = 1:numel(MODE)
         ttl = sprintf('%d UEs, tau_{max}=%.1f ns', Nu, max(res(c).(MODE{k}).tau)*1e9);
         title(ttl); ylim([-60 60]);
     end
-    sgtitle(sprintf('C17 Fig.7 reproduction, delay rule = %s', MODE{k}));
+    sgtitle(sprintf('Fig.7 reproduction, delay rule = %s', MODE{k}));
     print(fg, fullfile(out,sprintf('b1c_fig7_%s.png',MODE{k})), '-dpng','-r150'); close(fg);
 end
 
 % ---- in-band gain vs frequency, 4-UE case ------------------------------
-c = 2; th = p.caseAngles{c}; Nu = numel(th); b = jp_c17_bands(p, Nu);
+c = 2; th = p.caseAngles{c}; Nu = numel(th); b = jp_bands(p, Nu);
 fg = figure('Visible','off','Position',[80 80 1100 460]);
 for u = 1:Nu
     subplot(1,Nu,u);
     hold on;
     for k = 1:numel(MODE)
-        g = jp_c17_pattern(p, res(c).(MODE{k}).phi, res(c).(MODE{k}).tau, th(u), p.f(b.idx==u));
+        g = jp_pattern(p, res(c).(MODE{k}).phi, res(c).(MODE{k}).tau, th(u), p.f(b.idx==u));
         plot(p.foff(b.idx==u)/1e6, g(:), 'LineWidth',1.6);
     end
     yline(p.Gbs,'k--'); yline(p.Gbs-3,'r:');
@@ -114,7 +114,7 @@ for u = 1:Nu
 end
 legend({'eq.(5) rounded to 2.5 ns','eq.(5) exact','peak 28 dB','28-3 dB'}, ...
        'Location','southoutside','Orientation','horizontal');
-sgtitle('C17 4-UE case: in-band gain over the UE''s own subband');
+sgtitle('4-UE case: in-band gain over the UE''s own subband');
 print(fg, fullfile(out,'b1c_inband.png'), '-dpng','-r150'); close(fg);
 
 type(fullfile(out,'b1c_summary.txt'));

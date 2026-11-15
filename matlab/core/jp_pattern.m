@@ -1,5 +1,5 @@
-function [GdB, AF] = jp_c17_pattern(p, phi, tau, theta_grid, f_vec)
-%JP_C17_PATTERN  Beamforming gain (dB) of a JPTA weight set on a fine grid.
+function [GdB, AF] = jp_pattern(p, phi, tau, theta_grid, f_vec)
+%JP_PATTERN  Beamforming gain (dB) of a JPTA weight set on a fine grid.
 %
 %   GdB(na, nf) is the total BS gain for a UE at azimuth theta_grid(na) and
 %   frequency f_vec(nf):
@@ -8,7 +8,7 @@ function [GdB, AF] = jp_c17_pattern(p, phi, tau, theta_grid, f_vec)
 %
 %   with AF_h = |sum_m p_m(f) a_m(theta,f)^*|^2 / Nh in [0, Nh].  The vertical
 %   dimension is fixed at broadside (the paper's scenario is 2-D), so it only
-%   contributes the constant 10*log10(16); Gelem is set in jp_params_c17 so
+%   contributes the constant 10*log10(16); Gelem is set in jp_params so
 %   that the 16x16 peak gain is exactly the 28 dB of Table I.
 %
 %   The phasor sum is accumulated element by element to keep memory at

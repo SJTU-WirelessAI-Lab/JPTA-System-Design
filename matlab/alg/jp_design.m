@@ -1,10 +1,10 @@
-function [phi, tau, info] = jp_c17_design(p, theta_deg, bandIdx, mode, opt)
-%JP_C17_DESIGN  Type-1 JPTA codebook, three candidate design rules.
+function [phi, tau, info] = jp_design(p, theta_deg, bandIdx, mode, opt)
+%JP_DESIGN  Type-1 JPTA codebook, three candidate design rules.
 %
-%   [phi,tau] = jp_c17_design(p, theta, bandIdx, mode)
+%   [phi,tau] = jp_design(p, theta, bandIdx, mode)
 %
-%   mode = 'ls'        global optimum of C17 eq. (4), no approximation.
-%   mode = 'sawtooth'  delay profile structure of C17 Fig. 8:
+%   mode = 'ls'        global optimum of eq. (4), no approximation.
+%   mode = 'sawtooth'  delay profile structure of Fig. 8:
 %                      tau_m = tauStep * mod(m-1, N_UE), i.e. a sawtooth of
 %                      slope one TTD step per element that wraps every N_UE
 %                      elements.  Max delay = tauStep*(N_UE-1).
@@ -55,7 +55,7 @@ switch lower(mode)
         end
 
     otherwise
-        error('jp_c17_design: unknown mode %s', mode);
+        error('jp_design: unknown mode %s', mode);
 end
 
 % optimal phase for the chosen delays (closed form of eq. 4 in phi)
@@ -77,7 +77,7 @@ info.mode    = mode;
 info.tauMax  = max(tau);
 info.gIn     = zeros(1,Nu);
 for u = 1:Nu
-    gu = jp_c17_pattern(p, phi, tau, theta_deg(u), p.f(bandIdx==u));
+    gu = jp_pattern(p, phi, tau, theta_deg(u), p.f(bandIdx==u));
     info.gIn(u) = min(gu(:));
 end
 if opt.verbose

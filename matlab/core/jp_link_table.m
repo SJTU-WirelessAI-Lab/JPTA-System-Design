@@ -1,5 +1,5 @@
-function tab = jp_c17_link_table(p, gainDb, nrbMax, T)
-%JP_C17_LINK_TABLE  Pre-compute the effective SNR of every (RB, MCS) pair.
+function tab = jp_link_table(p, gainDb, nrbMax, T)
+%JP_LINK_TABLE  Pre-compute the effective SNR of every (RB, MCS) pair.
 %
 %   EESM is shift invariant in dB: adding a common dB offset to all
 %   subcarrier SNRs shifts the effective SNR by exactly the same amount.
