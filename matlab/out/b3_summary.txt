@@ -1,0 +1,19 @@
+[1] delay law  tau_m = (1/W) * mod(m-1, N_UE),  1/W = 2.50 ns
+  N_UE    mine (ns) paper (ns)      err
+  2            2.50       2.50     0.00
+  4            7.50       7.50     0.00
+  8           17.50      17.50     0.00
+  16          37.50      35.00     2.50
+  teeth per array = 16/N_UE: [8 4 2 1]
+
+[2] symmetry of the array factor (any phi,tau, any frequency)
+  max |G(theta)-G(-theta)| = 0.000e+00 dB over 481 angles x 167 freqs
+  same for random weights: 0.000e+00 dB
+
+[3] delay needed to sweep between two symmetric angles (eq. 5)
+  case       dTheta/2 2sin (cos span) tau_span (ns)
+  2 UEs          30.0        1.000        18.75
+  4 UEs          30.0        1.000        18.75
+  8 UEs          55.0        1.638        30.72
+  16 UEs         55.0        1.638        30.72
+  (the paper uses 2.5/7.5/17.5/35 ns, i.e. the sawtooth law, not eq. 5)

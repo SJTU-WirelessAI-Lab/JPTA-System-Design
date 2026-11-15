@@ -1,0 +1,20 @@
+eq.(5) slope vs the 2.5 ns TTD grid
+  case       sin(d/2)/W      /2.5 ns     on grid?
+  2 UEs           1.250        0.500           NO
+  4 UEs           1.250        0.500           NO
+  8 UEs           2.048        0.819           NO
+  16 UEs          2.048        0.819           NO
+
+no case sits on the grid, so every design is quantised away from eq.(5).
+
+2 UEs    Ws=  200 MHz  best sampled dt keeping 25 dB =  1.179 ns | at eq.(5) slope =  25.04 dB
+4 UEs    Ws=  100 MHz  best sampled dt keeping 25 dB =  0.000 ns | at eq.(5) slope =  20.16 dB
+8 UEs    Ws=   50 MHz  best sampled dt keeping 25 dB =  0.000 ns | at eq.(5) slope =   2.18 dB
+16 UEs   Ws=   25 MHz  best sampled dt keeping 25 dB =  0.000 ns | at eq.(5) slope =  -0.14 dB
+
+what the two candidate steps give:
+case       eq5 step  eq5q step      g@eq5     g@eq5q
+2 UEs         1.250      2.500      25.04    -140.58
+4 UEs         1.250      2.500      20.16       0.65
+8 UEs         2.048      2.500       2.18     -24.03
+16 UEs        2.048      2.500      -0.14     -12.34
